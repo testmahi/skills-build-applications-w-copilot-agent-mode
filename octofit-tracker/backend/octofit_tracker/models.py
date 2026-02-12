@@ -1,12 +1,12 @@
+
+
 from djongo import models
 
 # User collection
 class User(models.Model):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    team = models.CharField(max_length=100, blank=True, null=True)
-    workouts = models.ArrayField(model_container='Workout', blank=True, null=True)
-    activities = models.ArrayField(model_container='Activity', blank=True, null=True)
+    team = models.CharField(max_length=100, blank=True, null=True)  # Team name
     leaderboard_score = models.IntegerField(default=0)
 
     def __str__(self):
@@ -15,7 +15,6 @@ class User(models.Model):
 # Team collection
 class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    members = models.ArrayField(model_container='User', blank=True, null=True)
     total_score = models.IntegerField(default=0)
 
     def __str__(self):
@@ -23,7 +22,7 @@ class Team(models.Model):
 
 # Activity collection
 class Activity(models.Model):
-    user = models.CharField(max_length=150)
+    user = models.CharField(max_length=150)  # Username
     type = models.CharField(max_length=50)
     duration = models.IntegerField()
     calories = models.IntegerField()
@@ -34,7 +33,7 @@ class Activity(models.Model):
 
 # Workout collection
 class Workout(models.Model):
-    user = models.CharField(max_length=150)
+    user = models.CharField(max_length=150)  # Username
     description = models.TextField()
     date = models.DateField()
 
@@ -43,7 +42,7 @@ class Workout(models.Model):
 
 # Leaderboard collection
 class Leaderboard(models.Model):
-    user = models.CharField(max_length=150)
+    user = models.CharField(max_length=150)  # Username
     score = models.IntegerField()
 
     def __str__(self):
